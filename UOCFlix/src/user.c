@@ -35,8 +35,10 @@ tError user_init(tUser* object, const char* username, const char* name, const ch
     strcpy(object->username, username);
     strcpy(object->name, name);
     strcpy(object->mail, mail);
+    
     // PR2 EX1 
-
+    favoriteStack_create(&object->favorites);
+    
     return OK;
 }
 
@@ -409,8 +411,18 @@ tGenre user_getFavoriteGenre(tUser *object) {
 // Adds a favorite in stack of favorites of the user
 tError user_addFavorite(tUser *object, tFilm film) {
     // PR2 EX1
+    
+    tFavorite *tmp;
+    tmp = (tFavorite *)malloc(sizeof(tFavorite));
+    
+    if (tmp == NULL) {
+        return ERR_MEMORY_ERROR;
+    } else {
+        tmp->film = film;
+        favoriteStack_push(&object->favorites, *tmp);
+    }
 
-    return ERR_NOT_IMPLEMENTED;
+    return OK;
 }
 
 // Get the number of favorite films of a serie 

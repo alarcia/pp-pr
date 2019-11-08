@@ -83,21 +83,29 @@ tError favoriteStack_duplicate(tFavoriteStack *dst, tFavoriteStack src) {
 // Create the stack of favorite elements
 void favoriteStack_create(tFavoriteStack *stack) {
     // PR2 EX1
-    
+    stack->first = NULL;
 }
 
 // Will return true if stack is empty
 bool favoriteStack_empty(tFavoriteStack stack) {
     // PR2 EX1
-
-    return false;
+    return (stack.first == NULL);
 }
 
 // Add an element in favorite stack
 tError favoriteStack_push(tFavoriteStack *stack, tFavorite favorite) {
     // PR2 EX1
-
-    return ERR_NOT_IMPLEMENTED;
+    tFavoriteStackNode *tmp;
+    tmp = (tFavoriteStackNode *)malloc(sizeof(tFavoriteStackNode));
+    
+    if (tmp == NULL) {
+        return ERR_MEMORY_ERROR;
+    } else {
+        favorite_duplicate(&tmp->e, favorite);
+        tmp->next = stack->first;
+        stack->first = tmp;
+    }
+    return OK;
 }
 
 // Returns a pointer to the element at the top of the stack

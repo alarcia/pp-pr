@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Session Name="E:\OneDrive - Universitat Oberta de Catalunya\Prácticas de programación\PR2\UOCFlix2019.workspace">
-  <int Value="0" Name="m_selectedTab"/>
-  <wxString Value="E:\OneDrive - Universitat Oberta de Catalunya\Prácticas de programación\PR2\UOCFlix2019.workspace" Name="m_workspaceName"/>
-  <TabInfoArray Name="TabInfoArray"/>
+<Session Name="E:\c-projects\pr2\UOCFlix2019.workspace">
+  <int Value="1" Name="m_selectedTab"/>
+  <wxString Value="E:\c-projects\pr2\UOCFlix2019.workspace" Name="m_workspaceName"/>
+  <TabInfoArray Name="TabInfoArray">
+    <TabInfo>
+      <wxString Value="E:\c-projects\pr2\UOCFlix\include\user.h" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="12" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="E:\c-projects\pr2\UOCFlix\src\user.c" Name="FileName"/>
+      <int Value="394" Name="FirstVisibleLine"/>
+      <int Value="402" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="E:\c-projects\pr2\UOCFlix\src\favorite.c" Name="FileName"/>
+      <int Value="68" Name="FirstVisibleLine"/>
+      <int Value="95" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+    <TabInfo>
+      <wxString Value="E:\c-projects\pr2\UOCFlix\include\favorite.h" Name="FileName"/>
+      <int Value="0" Name="FirstVisibleLine"/>
+      <int Value="10" Name="CurrentLine"/>
+      <wxArrayString Name="Bookmarks"/>
+      <IntVector Name="CollapsedFolds"/>
+    </TabInfo>
+  </TabInfoArray>
   <SerializedObject Name="m_breakpoints">
     <long Value="0" Name="Count"/>
   </SerializedObject>
