@@ -66,6 +66,8 @@ void user_free(tUser* object) {
     }
 
     // PR2 EX2 - Release favorites stack
+    favoriteStack_free(&object->favorites);
+    
 }
 
 // Compare two users
@@ -403,14 +405,37 @@ tError user_trimCapitalizeName(tUser* object) {
 // Will return GENRE_NOT_FOUND if user has no favorites yet
 tGenre user_getFavoriteGenre(tUser *object) {
     // PR2 EX3
+    assert(object != NULL);
+    
+    int i, maxOcurrences;
+    tFavoriteStack tmpFavoriteStack;
+    int genreOcurrences[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    tGenre tmpGenre = GENRE_NOT_FOUND;
+    
+    favoriteStack_duplicate(&tmpFavoriteStack, object->favorites);
+    
+    while(!favoriteStack_empty(tmpFavoriteStack)){
+        tmpGenre = tmpFavoriteStack.first->e.film.series->genre;
+        genreOcurrences[tmpGenre]++;
+        favoriteStack_pop(&tmpFavoriteStack);
+    }
+    
+    for (i = 0; i<8; i++) {
+        if (genreOcurrences[i] > maxOcurrences) {
+            tmpGenre = i;
+            maxOcurrences = genreOcurrences[i];
+        }
+    }
 
-    return GENRE_QTY;   // just some value to get the test to fail
+    return tmpGenre;   
 }
 
 
 // Adds a favorite in stack of favorites of the user
 tError user_addFavorite(tUser *object, tFilm film) {
     // PR2 EX1
+    // Verify pre conditions
+    assert(object!=NULL);
     
     tFavorite *tmp;
     tmp = (tFavorite *)malloc(sizeof(tFavorite));
@@ -429,8 +454,10 @@ tError user_addFavorite(tUser *object, tFilm film) {
 // in favorites stack
 unsigned user_getFavsCntPerSeries(tUser *user, tSeries *series) {
     // PR2 EX3
+    assert(user != NULL);
+    assert(series != NULL);
     
-    return UINT_MAX;
+    return favoriteStack_getFavsCntPerSeriesRecursive(&user->favorites, series);
 }
 
 
@@ -438,6 +465,7 @@ unsigned user_getFavsCntPerSeries(tUser *user, tSeries *series) {
 // in favorites stack
 unsigned user_getFavsLengthInMin(tUser *user) {
     // PR2 EX3
+    assert(user != NULL);
 
-    return UINT_MAX;
+    return favoriteStack_getFavsLengthInMinRecursive(&user->favorites);
 }

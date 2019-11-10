@@ -83,18 +83,23 @@ tError favoriteStack_duplicate(tFavoriteStack *dst, tFavoriteStack src) {
 // Create the stack of favorite elements
 void favoriteStack_create(tFavoriteStack *stack) {
     // PR2 EX1
+    assert(stack != NULL);
+    
     stack->first = NULL;
 }
 
 // Will return true if stack is empty
 bool favoriteStack_empty(tFavoriteStack stack) {
     // PR2 EX1
+    
     return (stack.first == NULL);
 }
 
 // Add an element in favorite stack
 tError favoriteStack_push(tFavoriteStack *stack, tFavorite favorite) {
     // PR2 EX1
+    assert(stack != NULL);
+        
     tFavoriteStackNode *tmp;
     tmp = (tFavoriteStackNode *)malloc(sizeof(tFavoriteStackNode));
     
@@ -112,22 +117,45 @@ tError favoriteStack_push(tFavoriteStack *stack, tFavorite favorite) {
 // If stack is empty, will return ERR_NOT_FOUND
 tError favoriteStack_top(tFavorite *out, tFavoriteStack stack) {
     // PR2 EX2  
+    assert(out != NULL);
+    
+    if (stack.first == NULL) {
+        return ERR_NOT_FOUND;
+    } else {
+        favorite_duplicate(out, stack.first->e);
+    }
 
-    return ERR_NOT_IMPLEMENTED;
+    return OK;
 }
 
 // Removes element at the top of the stack
 // If empty, will return ERR_INVALID
 tError favoriteStack_pop(tFavoriteStack *stack) {
     // PR2 EX2
+    assert(stack != NULL);
+    
+    tFavoriteStackNode *tmp = NULL;
+    
+    if (stack->first == NULL) {
+        return ERR_INVALID;
+    } else {
+        tmp = stack->first;
+        stack->first = stack->first->next;
+        free(tmp);
+    }
 
-    return ERR_NOT_IMPLEMENTED;
+    return OK;
 }
 
 
 // Removes all elements in the stack
 void favoriteStack_free(tFavoriteStack *stack) {
     // PR2 EX2
+    assert(stack != NULL);
+    
+    while(stack->first){
+        favoriteStack_pop(stack);
+    }
 
 }
 
@@ -247,15 +275,52 @@ bool favorite_compare(tFavorite f1, tFavorite f2) {
 // Recursively get the total length of the movies referenced 
 unsigned favoriteStack_getFavsLengthInMinRecursive(tFavoriteStack *stack) {
     // PR2 EX3
-
-    return UINT_MAX;
+    assert(stack != NULL);
+    unsigned res = 0;
+    tFavorite temp;
+    tFavoriteStack tempStack;
+    
+    // we work with a compy so we don't pop data from original stack
+    favoriteStack_duplicate(&tempStack, *stack);
+    
+    if(favoriteStack_empty(tempStack)){
+        return res;
+    }
+    
+    favoriteStack_top(&temp, tempStack);
+    
+    res = temp.film.lengthInMin;
+    
+    favoriteStack_pop(&tempStack);
+    
+    return res + favoriteStack_getFavsLengthInMinRecursive(&tempStack);
 }
 
-// Recursively get number os favorites films of a serie 
+// Recursively get number of favorite films of a series
 unsigned favoriteStack_getFavsCntPerSeriesRecursive(tFavoriteStack *stack, tSeries *serie) {
     // PR2 EX3
-
-    return UINT_MAX;
+    assert(stack != NULL);
+    assert(serie != NULL);
+    unsigned res = 0;
+    tFavorite temp;
+    tFavoriteStack tempStack;
+    
+    // we work with a compy so we don't pop data from original stack
+    favoriteStack_duplicate(&tempStack, *stack);
+    
+    if (favoriteStack_empty(tempStack)){
+        return res;
+    }
+    
+    favoriteStack_top(&temp, tempStack);
+    
+    if (series_equals(temp.film.series, serie)){
+        res = 1;
+    }
+    
+    favoriteStack_pop(&tempStack);
+    
+    return res + favoriteStack_getFavsCntPerSeriesRecursive(&tempStack, serie);
 }
 
 // Helper function - Print a stack in the console - use for debugging
